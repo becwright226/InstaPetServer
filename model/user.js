@@ -20,13 +20,13 @@ const UserModel = db.define("user", {
         unique: true
     },
     password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(),
         allowNull: false
     },
-    petType: {
-        type: DataTypes.,
-        allowNull: false
-    }
+    // petType: {
+    //     type: DataTypes.ENUM(),
+    //     allowNull: false
+    // }
 });
 
 

@@ -1,10 +1,9 @@
-const PieModel = require('./pie');
+// const PostModel = require('./post');
 const UserModel  = require('./user');
 
 
 
 module.exports = {
   CORS: require('./headers'),
-  validateSession: require('./validate-session'),
-  PieModel, 
+  // PostModel, 
   UserModel }

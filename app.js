@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 const Express = require('express');
 const app = Express();
 const dbConnection = require('./db');
@@ -8,11 +8,13 @@ app.use(Express.json());
 
 const controllers = require('./controllers');
 
+app.use('/user', controllers.userController);
+
 dbConnection.authenticate()
 .then(() => dbConnection.sync())
 .then(() => {
-    app.listen(3001, () => {
-        console.log(`[Server]: App is listening on 3001.`);
+    app.listen(1150, () => {
+        console.log(`[Server]: App is listening on 1150.`);
     });
 })
 
