@@ -22,11 +22,11 @@ const UserModel =db.define('user',{
     password: {
         type: DataTypes.STRING(),
         allowNull: false
-    },
-    petType:{
+    }
+   /* petType:{
         type: DataTypes.ENUM(),
         allowNull: false
-    }
+    } */
 })
 
 module.exports = UserModel

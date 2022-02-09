@@ -5,11 +5,14 @@ const app = Express();
 const dbConnection = require("./db");
 
 const controllers = require("./controllers");
-const headers = require("./model")
+
 
 app.use(Express.json());
 
-app.use(headers.CORS)
+
+app.use(require('./model/headers'))
+app.use('/user', controllers.userController)
+app.use('/post', controllers.postController)
 
 dbConnection.authenticate()
     .then(()=> dbConnection.sync())
