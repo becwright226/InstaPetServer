@@ -47,9 +47,6 @@ router.post("/register", async (req, res) => {
 
 
 //! LOGIN
-//*create a login route '/login' that takes email and password to login
-//*utilise bcrypt to compare password to what is in the db
-//*create a new token based on the db user id
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;

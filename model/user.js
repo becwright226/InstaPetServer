@@ -26,7 +26,7 @@ const UserModel = db.define("user", {
     // petType: {
     //     type: DataTypes.ENUM(),
     //     allowNull: false
-    // }
+    // },
 });
 
 
