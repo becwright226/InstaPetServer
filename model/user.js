@@ -22,7 +22,9 @@ const UserModel =db.define('user',{
     password: {
         type: DataTypes.STRING(),
         allowNull: false
-    }
+    },
+    
+
    /* petType:{
         type: DataTypes.ENUM(),
         allowNull: false
