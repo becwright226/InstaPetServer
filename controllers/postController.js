@@ -120,6 +120,34 @@ router.put('/:id', validateJWT, async (req, res) => {
 });
 
 
+//! UPDATE TREAT COUNT
+router.put('/treat/:id', validateJWT, async (req, res) => {
+    const { treat } = req.body;
+    const postId = req.params.id;
+  
+
+
+    const query = {
+        where: {
+            id: postId,
+        }
+    };
+
+
+    const updatedPost = {
+       
+        treat: treat ? treat : 0
+    };
+
+    try {
+        const update = await PostModel.update(updatedPost, query);
+        res.status(200).json(updatedPost);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
+
 router.delete("/:id", validateJWT, async (req,res) => {
     const ownerId = req.user.id;
     const postId = req.params.id;
