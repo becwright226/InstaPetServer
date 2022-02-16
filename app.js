@@ -17,8 +17,8 @@ app.use('/post', controllers.postController);
 dbConnection.authenticate()
 .then(() => dbConnection.sync())
 .then(() => {
-    app.listen(1150, () => {
-        console.log(`[Server]: App is listening on 1150.`);
+    app.listen(process.env.PORT, () => {
+        console.log(`[Server]: App is listening on ${process.env.PORT}`);
 
     });
 })
