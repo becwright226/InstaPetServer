@@ -5,14 +5,15 @@ let validateJWT = require('../middleware/validate-session')
 //! CREATING A POST:
 router.post("/", validateJWT, async (req, res) => {
 
-  const { image, desc, petType, public } = req.body
+  const { image, desc, petType, treat, isPublic } = req.body
   const { id } = req.user;
   try {
       const createPost = await PostModel.create({
           image, 
           desc,
           petType,
-          public,
+          isPublic,
+          treat: 0,
           ownerId: id
       });
 
@@ -62,17 +63,16 @@ router.get("/mypets", validateJWT, async (req,res) => {
 });
 
 
-//! GET POSTS BY public
+//! GET POSTS BY isPublic
 router.get('/public', async (req, res) => {
     try {
         const results = await PostModel.findAll({
-            where: { public: true }
+            where: { isPublic: true }
         });
         res.status(200).json(results);
     }  catch (err) {
         res.status(500).json({ error: err });
     }
-    console.log(results, '***********')
 });
 
 
@@ -81,7 +81,7 @@ router.get('/:petType', async (req, res) => {
     const  { petType } = req.params;
     try {
         const results = await PostModel.findAll({
-            where: { petType: petType, public: true }
+            where: { petType: petType, isPublic: true }
         });
         res.status(200).json(results);
     }  catch (err) {
@@ -92,7 +92,7 @@ router.get('/:petType', async (req, res) => {
 
 //! UPDATE POST BY ID:
 router.put('/:id', validateJWT, async (req, res) => {
-    const { image, desc, petType, public } = req.body;
+    const { image, desc, petType, isPublic, treat } = req.body;
     const postId = req.params.id;
     const userId = req.user.id;
 
@@ -107,7 +107,36 @@ router.put('/:id', validateJWT, async (req, res) => {
         image: image, 
         desc: desc, 
         petType: petType, 
-        public: public
+        isPublic: isPublic,
+        treat: treat ? treat : 0
+    };
+
+    try {
+        const update = await PostModel.update(updatedPost, query);
+        res.status(200).json(updatedPost);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
+
+//! UPDATE TREAT COUNT
+router.put('/treat/:id', validateJWT, async (req, res) => {
+    const { treat } = req.body;
+    const postId = req.params.id;
+  
+
+
+    const query = {
+        where: {
+            id: postId,
+        }
+    };
+
+
+    const updatedPost = {
+       
+        treat: treat ? treat : 0
     };
 
     try {

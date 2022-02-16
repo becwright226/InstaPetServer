@@ -14,9 +14,12 @@ const PostModel = db.define('post', {
     type: DataTypes.STRING(),
     allowNull: false
   },
-  public: {
+  isPublic: {
     type: DataTypes.BOOLEAN(),
     allowNull: false
+  },
+  treat: {
+    type: DataTypes.INTEGER,
   },
   ownerId: {
     type: DataTypes.INTEGER,
