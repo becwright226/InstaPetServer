@@ -5,10 +5,11 @@ const Express = require('express');
 const app = Express();
 const dbConnection = require('./db');
 
-app.use(require('./model/headers'))
 app.use(Express.json());
 
 const controllers = require('./controllers');
+app.use(require('./model/headers'))
+//
 
 
 app.use('/user', controllers.userController);

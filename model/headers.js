@@ -19,13 +19,27 @@
     * access-control-allow-headers --> response header that's used in response to a preflight request that indicates which HTTP headers can be used during an actual request.
 */
 
-module.exports = (req, res, next) => {
+/*module.exports = (req, res, next) => {
   res.header("access-control-allow-origin", "*");
   res.header("access-control-allow-methods", "GET, POST, PUT, DELETE");
   res.header(
     "access-control-allow-headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
+
+  next();
+};*/
+
+module.exports = (req, res, next) => {
+  res.header("access-control-allow-origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === 'OPTIONS') {
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    return res.status(200).json({})
+  }
 
   next();
 };
